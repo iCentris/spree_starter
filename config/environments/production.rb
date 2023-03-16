@@ -81,6 +81,8 @@ Rails.application.configure do
       entitystore: client,
       verbose: false
     }
+  elsif ENV['REDIS_CACHE_URL'].present?
+    config.cache_store = :redis_cache_store, { url: ENV['REDIS_CACHE_URL'], expires_in: 90.minutes }
   end
 
   heroku_app_url = ENV['HEROKU_APP_NAME'].present? ? "#{ENV['HEROKU_APP_NAME']}.herokuapp.com" : nil
